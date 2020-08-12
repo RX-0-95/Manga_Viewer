@@ -1,0 +1,6 @@
+#Ignore the venv folder in the stage 
+*/venv/*
+venv/*
+.vscode/*
+*/__pycache__
+resource/*
