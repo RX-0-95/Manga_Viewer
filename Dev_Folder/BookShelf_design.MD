@@ -20,7 +20,7 @@
 1. Create model from the folder 
 
 # Book View 
-
+* Book-shelf icon: https://icons8.com/icon/23662/book-shelf
 
 
 

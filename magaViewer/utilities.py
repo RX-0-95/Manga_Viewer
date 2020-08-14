@@ -21,6 +21,13 @@ class Utilities():
         file_path = path.join(directory, 'images', file_name)
         file_path = str(file_path)
         return file_path
+    
+    @staticmethod
+    def getBookShelfIconPath():
+        return Utilities.getImagePath("book-shelf.png")
+
+    def getSettingIconPath():
+        return Utilities.getImagePath("setting_icon.png")
     @staticmethod
     def getSettingFilePath():
         return path.join(Utilities.CurrentDir(),"setting.ini")

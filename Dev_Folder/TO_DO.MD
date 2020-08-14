@@ -8,7 +8,8 @@
 
 ## Style
 - [ ]dark mode  
-
+- [ ]macos, windows, linux, icon changed
+- [ ] move all style to separate sytle sheet
 
 
 ## MainUI:
@@ -16,7 +17,7 @@
 - [ ] Use layout to pisition to layout the widgets (notice the qlabel in status bar)
 
 ## Settings 
-- [ ] Move all the settings to qt base setting profile 
+- [x] Move all the settings to qt base setting profile 
 
 ## BookItemDelegate 
 - [ ] proper text elided class to solve text box problem 
@@ -44,6 +45,7 @@
 ## View UI
 
 - [ ] preview bar 
+
   
 
 
