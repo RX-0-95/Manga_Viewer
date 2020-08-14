@@ -3,7 +3,7 @@
 
 ## Bug 
 - [ ] change folder when book cover is loading cause break down
-- [ ] 
+- [x] High DPI error
 
 
 ## Style
@@ -15,7 +15,7 @@
 ## MainUI:
 - [ ] point to a book and update the status bar 
 - [ ] Use layout to pisition to layout the widgets (notice the qlabel in status bar)
-
+- [ ] add open in another view windown option
 ## Settings 
 - [x] Move all the settings to qt base setting profile 
 

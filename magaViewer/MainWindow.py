@@ -32,16 +32,16 @@ class MainWindow(qtw.QMainWindow):
         ############
         ##Config####
         ############
-        #self._config = ConfigParser()
+        # self._config = ConfigParser()
         # get the path based on executable or python file
-        #directory = None
-        #if getattr(sys, "frozen", False):
+        # directory = None
+        # if getattr(sys, "frozen", False):
         #    directory = sys._MEIPASS
-        #else:  # Not frozen
+        # else:  # Not frozen
         #    directory = path.dirname(__file__)
-        #self._setting_file_path = path.join(directory, SETTING_FILE)
+        # self._setting_file_path = path.join(directory, SETTING_FILE)
 
-        #self._config.read(self._setting_file_path)
+        # self._config.read(self._setting_file_path)
         self.setting_path = Utilities.getSettingFilePath()
         setting = qtc.QSettings(self.setting_path, qtc.QSettings.IniFormat)
         # init the image folder path
@@ -51,17 +51,16 @@ class MainWindow(qtw.QMainWindow):
             self.book_folder_path = qtc.QDir.homePath()
             setting.setValue("User_settings/book_folder", self.book_folder_path)
 
-
-        #try:
+        # try:
         #    self._image_folder_path = self._config[SETTING_SECTION_PATHS][
         #        "open_file_path"
         #    ]
         #    # print(self._config[SETTING_SECTION_PATHS]['open_file_path'])
         #    # print(self._open_file_path)
-        #except:
+        # except:
         #    self._image_folder_path = qtc.QDir.homePath()
 
-        #self._qsetting_file_path = str(path.join(directory, "qsetting.ini"))
+        # self._qsetting_file_path = str(path.join(directory, "qsetting.ini"))
 
         # print(qsetting_file_path)
         # self._qsetting = qtc.QSettings(qsetting_file_path, qtc.QSettings.IniFormat)
@@ -89,7 +88,6 @@ class MainWindow(qtw.QMainWindow):
         if qsetting.value("MainWindow/windowState"):
             self.restoreState(qsetting.value("MainWindow/windowState"))
 
-
         ###Status Bar####
         self._main_status_bar = qtw.QStatusBar()
         self._status_label = qtw.QLabel()
@@ -107,11 +105,16 @@ class MainWindow(qtw.QMainWindow):
         self.setCentralWidget(self.book_shelf)
         ###############Connect book shelf to UI################
         self.open_file_path.connect(self.book_shelf.loadBooks)
-        self.book_shelf.getView().doubleClicked.connect(self.book_shelf.updateBookProgressFromIndex)
+        self.book_shelf.getView().doubleClicked.connect(
+            self.book_shelf.updateBookProgressFromIndex
+        )
         self.book_shelf.getView().doubleClicked.connect(self.book_shelf.updateCover)
         self.book_shelf.getModel().file_count_sgn.connect(
-            lambda x,y: self._file_count_label.setText(f"        {x} Books, {y} Folders"))
-        
+            lambda x, y: self._file_count_label.setText(
+                f"        {x} Books, {y} Folders"
+            )
+        )
+
         ##############Connect END##############################
 
         ###################
@@ -147,8 +150,6 @@ class MainWindow(qtw.QMainWindow):
 
         #############################################
 
-
-
         ###################
         ###Layout##########
         ###################
@@ -164,21 +165,20 @@ class MainWindow(qtw.QMainWindow):
             self.book_folder_path = dialog.selectedFiles()[0]
 
             # update the file_path in the setting.ini
-            #self._config.set(
+            # self._config.set(
             #    SETTING_SECTION_PATHS, "open_file_path", str(self.book_folder_path)
-            #)
-            
-            #setting_file = open(self._setting_file_path, "w")
-            #self._config.write(setting_file)
-            #setting_file.close()
+            # )
+
+            # setting_file = open(self._setting_file_path, "w")
+            # self._config.write(setting_file)
+            # setting_file.close()
 
             setting = qtc.QSettings(self.setting_path, qtc.QSettings.IniFormat)
-            setting.setValue("User_settings/book_folder",self.book_folder_path)
+            setting.setValue("User_settings/book_folder", self.book_folder_path)
 
             # update status bar and emit singal
             self._status_label.setText(str(self.book_folder_path))
             self.open_file_path.emit(str(self.book_folder_path))
-            
 
     def closeEvent(self, closeEvent):
         # print('Enter close event')
@@ -190,8 +190,11 @@ class MainWindow(qtw.QMainWindow):
 
 
 if __name__ == "__main__":
-
+    qtw.QApplication.setAttribute(qtc.Qt.AA_EnableHighDpiScaling)
+    qtc.QCoreApplication.setAttribute(qtc.Qt.AA_UseHighDpiPixmaps)
     app = qtw.QApplication(sys.argv)
+    #app.setAttribute(qtc.Qt.AA_EnableHighDpiScaling)
+
     dw = DebugWindow()
     mw = MainWindow()
 

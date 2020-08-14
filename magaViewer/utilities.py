@@ -24,14 +24,23 @@ class Utilities():
     
     @staticmethod
     def getBookShelfIconPath():
-        return Utilities.getImagePath("book-shelf.png")
+        return Utilities.getImagePath("book_shelf_icon.png")
 
     def getSettingIconPath():
         return Utilities.getImagePath("setting_icon.png")
+    
+    def getInfoIconPath():
+        return Utilities.getImagePath("Win10_info_icon.png")
+
+    def getNextIconPath():
+        return Utilities.getImagePath("next_icon.png")
+    def getPrevIconPath():
+        return Utilities.getImagePath("previous_icon.png")
     @staticmethod
     def getSettingFilePath():
         return path.join(Utilities.CurrentDir(),"setting.ini")
     
+   
     def CurrentDir():
         directory = None
         if getattr(sys, "frozen", False):

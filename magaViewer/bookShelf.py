@@ -138,7 +138,7 @@ class BookCoverDelegate(qtw.QStyledItemDelegate):
 
 
 class BookItem(qtg.QStandardItem):
-    def __init__(self, book_name=None, zipfile_path=None, width=300, height=350):
+    def __init__(self, book_name=None, zipfile_path=None, width=300/2, height=int(350/2)):
         super().__init__()
         ####TO DO#######
         # decide whether to leave the book_name = None
