@@ -37,7 +37,3 @@ class MangaToolButton(qtw.QToolButton):
     def on_click(self):
         self.changed.emit()
 
-    #def sizeHint(self):
-    #    _screen = self.screen()
-    #    screen_height = _screen.geometry().height()
-    #    return qtc.QSize(super().sizeHint().width(), int(screen_height / 18))
