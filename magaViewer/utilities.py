@@ -6,8 +6,6 @@ from os import path
 
 class Utilities():
     
-
-
     def CurrentDir():
         directory = None
         if getattr(sys, "frozen", False):

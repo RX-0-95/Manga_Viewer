@@ -15,7 +15,9 @@ class FileMatch():
     @staticmethod
     def isImage(filename):
         return bool(re.match(r".*\.jpg$|.*\.png$|.*\.jpeg$",filename,re.I))  
-
+    @staticmethod
+    def isZip(filename):
+        return bool(re.match(r".*\.zip$",filename,re.I))
     
 
 

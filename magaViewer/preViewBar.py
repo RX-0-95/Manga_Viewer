@@ -94,6 +94,9 @@ class PreviewBar(qtw.QWidget):
         self.style().drawPrimitive(qtw.QStyle.PE_Widget, opt, painter, self)
         super().paintEvent(a0)
 
+    def wheelEvent(self, a0):
+        print("Preview Bar wheel Event")
+        return super().wheelEvent(a0)
 
         
 

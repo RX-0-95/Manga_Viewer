@@ -4,6 +4,7 @@
 ## Bug 
 - [ ] change folder when book cover is loading cause break down
 - [x] High DPI error
+- [ ] Scorll on Graphics View, make scorll event fire twice 
 
 
 ## Style
@@ -45,8 +46,16 @@
 ## View UI
 
 - [ ] preview bar 
-
+- [ ] Vertical continue view 
+- [ ] automatic next page 
+- [ ] create bookview class to handle book and other event 
+- [ ] Prev View tool Bar wheel event 
   
+### Book View 
+The scene will set it's size automatically to the size of the item 
+
+### Book Scene 
+
 
 
 

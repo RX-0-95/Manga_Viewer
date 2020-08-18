@@ -71,15 +71,7 @@ class BookCoverDelegate(qtw.QStyledItemDelegate):
                 c_y + int((cover_rect_height-fit_size.height()+1)/2),
                 fit_size.width(), fit_size.height())
 
-            painter.drawPixmap(fit_rect, img)
-            
-
-
-
-            #cover = current_item.getCover().scaled(
-            #    qtc.QSize(cover_rect_width,cover_rect_height),
-            #    qtc.Qt.KeepAspectRatio)
-            
+            painter.drawPixmap(fit_rect, img)     
         else:
             cover = qtg.QPixmap(Utilities.getDefaultCoverPath())
             painter.drawPixmap(cover_rect, cover)
@@ -144,6 +136,7 @@ class BookItem(qtg.QStandardItem):
         # decide whether to leave the book_name = None
 
         self.zipfile_path = zipfile_path
+        self.item_type = None
         self.book_name = book_name
         self.book_cover = None
 
@@ -211,7 +204,7 @@ class BookItem(qtg.QStandardItem):
     def updateItem(self):
         self.emitDataChanged()
 
-
+###############TO DO: Stop the load cover thread when Image Folder is reload 
 class BookShelfModel(qtg.QStandardItemModel):
     #######################
     ########signals########
@@ -222,6 +215,8 @@ class BookShelfModel(qtg.QStandardItemModel):
     folder_chage_sgn = qtc.pyqtSignal(str)
     #send the count of the book and folder
     file_count_sgn = qtc.pyqtSignal(int,int)
+
+    quit_loader_thread = qtc.pyqtSignal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -242,8 +237,9 @@ class BookShelfModel(qtg.QStandardItemModel):
 
     @qtc.pyqtSlot(str)
     def loadBooks(self, book_folder_path):
+        #Stop the current load cover thread first 
+        
         ######Create BookItem#####
-        # print(book_folder_path)
         directory = path.dirname(__file__)
         icon_path = path.join(directory, "images", "book_loading.jpg")
         book_load_icon = qtg.QIcon(qtg.QPixmap(icon_path))
@@ -257,6 +253,7 @@ class BookShelfModel(qtg.QStandardItemModel):
         #################Add Item from Folder##############################
         # clear the model
         self.clear()
+        
         # udpate the model
         book_dir = qtc.QDir(book_folder_path)
         # get .zip file
@@ -264,13 +261,28 @@ class BookShelfModel(qtg.QStandardItemModel):
         zip_file_info_list = book_dir.entryInfoList(
             name_filter,
             qtc.QDir.NoDotAndDotDot | qtc.QDir.Files | qtc.QDir.Dirs,
-            qtc.QDir.Name,
+            qtc.QDir.Name
         )
       
         # get folder
         folder_file_info_list = book_dir.entryInfoList(
             qtc.QDir.NoDotAndDotDot | qtc.QDir.Dirs, qtc.QDir.Name
         )
+
+        #get jpg, png, peng 
+        name_filter = ["*.jpg","*.png"]
+        img_file_info_list = book_dir.entryInfoList(
+            name_filter,
+            qtc.QDir.NoDotAndDotDot| qtc.QDir.Files,
+            qtc.QDir.Name
+        )
+        #set the firt image as cover
+        if img_file_info_list:
+            print("inside")
+            dir_cover = qtg.QPixmap(img_file_info_list[0].absoluteFilePath())
+            book_item = BookItem(book_dir.dirName(),book_dir)
+            book_item.setCover(dir_cover)
+            self.appendRow(book_item)
         #emit the count of the file: book, folder
         self.file_count_sgn.emit(len(zip_file_info_list), len(folder_file_info_list))
         
@@ -319,12 +331,14 @@ class BookShelfView(qtw.QListView):
         # self.setGridSize(qtc.QSize(300,400))
         self.setSelectionRectVisible(True)
 
+
+
+
     # Open the choosen book in a viewer Window
     def openBook(self):
         None
 
-    def loadBooks(self, folder_path):
-        None
+
 
 
 ########Book Shelf##########################
@@ -374,4 +388,8 @@ class BookShelf(qtw.QWidget):
 
     ### TO DO: refresh the books view
     def refresh(self):
+        None
+
+    ###TO DO: open an Item from its index (Dir or zip file)
+    def openItemFromIndex(self, index):
         None
