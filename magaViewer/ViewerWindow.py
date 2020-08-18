@@ -216,27 +216,29 @@ class AbstractBookObj(qtc.QObject):
         self.path = path
         self.updatePageCount()
         self.current_page = 1
-
+    
+    #go to specific page, return 1 if success, return 0 if not 
     @qtc.pyqtSlot(int)
     def goToPage(self, page_num):
         if page_num < 1:
             self.page_start_reached.emit()
-            return
+            return 0
         if page_num == self.page_count:
             self.page_end_reached.emit()
-            return
+            return 0
         self.current_page = page_num
         print(f"Currnet page: {page_num}")
         # emit the page num
         self.page_changed.emit(page_num)
         # Check if the page out of bound
         self.openPage(self.current_page)
+        return 1
 
     def nextPage(self):
-        self.goToPage(self.current_page + 1)
+        return self.goToPage(self.current_page + 1)
 
     def prevPage(self):
-        self.goToPage(self.current_page - 1)
+        return self.goToPage(self.current_page - 1)
 
 
 ######Zip Book object##########
@@ -314,17 +316,18 @@ class BookScene(qtw.QGraphicsScene):
         self.book.goToPage(190)
         self.book_changed.emit()
     
+    #return 1 if success to go next page, 0 if not 
     def nextPage(self):
         if self.book:
-            self.book.nextPage()
-    
+            return self.book.nextPage()
+    #return 1 if success to go prev page, 0 if not 
     def prevPage(self):
         if self.book:
-            self.book.prevPage()
+            return self.book.prevPage()
     
     def goToPage(self,num):
         if self.book:
-            self.book.goToPage(num)
+            return self.book.goToPage(num)
 
     def eventFilter(self, watched, event):
         # handle QEvent.Wheel
@@ -355,17 +358,13 @@ class BookScene(qtw.QGraphicsScene):
         self.currentPixmap.setPixmap(pixmap)
         # self.currentPixmap.moveBy(1000,100)
         print(f"pixmap size: {pixmap.size().width(), pixmap.size().height()}")
+        self.setSceneRect(qtc.QRectF(pixmap.rect()))
         self.update()
 
-    def update(self):
-        print(f"scene Rect: {self.sceneRect()}")
-        return super().update()
+
 
 
 class BookView(qtw.QGraphicsView):
-    wheel_up = qtc.pyqtSignal()
-    wheel_down = qtc.pyqtSignal()
-
     def __init__(self, scene=None, parent=None):
         super().__init__(scene, parent)
         if self.scene():
@@ -381,7 +380,6 @@ class BookView(qtw.QGraphicsView):
 
     def wheelEvent(self, event):
         #########TO DO: Add support of horizontal wheel option
-        # print(f"Margines: {self.viewportMargins().left(), self.viewportMargins().top(),self.viewportMargins().right(),self.viewportMargins().bottom()}")
         print(f"Scene Rect: {self.sceneRect()}")
         print(f"View Rect: {self.viewport().geometry()}")
         # View Rect's topLeft somehow start at (1,1), translate to origin (0,0)
@@ -440,13 +438,14 @@ class BookView(qtw.QGraphicsView):
         short_cuts.extend([qtc.Qt.Key_Minus, qtc.Qt.Key_hyphen])
         self.prev_page_action.setShortcuts(short_cuts)
 
+    #rest the scroll bar to top if the page is successfully chagned 
     def nextPage(self):
-        self.scene().nextPage()
-        self.verticalScrollBar().setValue(0)
+        if self.scene().nextPage():
+            self.verticalScrollBar().setValue(0)
     
     def prevPage(self):
-        self.scene().prevPage()
-        self.verticalScrollBar().setValue(0)
+        if self.scene().prevPage():
+            self.verticalScrollBar().setValue(0)
 
 class ViewerWindow(qtw.QMainWindow):
     def __init__(self, book_shelf=None):
