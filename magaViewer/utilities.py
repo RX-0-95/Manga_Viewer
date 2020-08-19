@@ -49,11 +49,14 @@ class Utilities():
 
     def getAddBookMarkIconPath():
         return Utilities.getImagePath("add_bookmark_icon.png")
+
+    def getPageLayoutIconPath():
+        return Utilities.getImagePath("page_layout_icon.png")
+    
     @staticmethod
     def getSettingFilePath():
         return path.join(Utilities.CurrentDir(),"setting.ini")
-    
-    
+
    
 
 
