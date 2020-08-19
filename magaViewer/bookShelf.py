@@ -5,8 +5,8 @@ from configparser import ConfigParser
 import sys
 from os import path
 
-from zipBookReader import BookCoverLoader
-from dev_tool import DebugWindow
+from .zipbookreader import BookCoverLoader
+from .dev_tool import DebugWindow
 
 
 SETTING_FILE = "setting.ini"
@@ -20,7 +20,7 @@ BI_DEFAULT_ICON = "book_loading.jpg"
 
 
 
-from utilities import Utilities
+from .utilities import Utilities
 
 
 class BookCoverDelegate(qtw.QStyledItemDelegate):

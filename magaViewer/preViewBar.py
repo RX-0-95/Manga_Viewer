@@ -5,8 +5,8 @@ from configparser import ConfigParser
 import sys
 from os import path
 
-from utilities import Utilities
-from toolButton import MangaToolButton
+from .utilities import Utilities
+from .toolbutton import MangaToolButton
 
 
 class LineEdit(qtw.QLineEdit):

@@ -3,12 +3,12 @@ from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
 import sys
 from os import path
-from utilities import Utilities
-from zipBookReader import BookCoverLoader
-from dev_tool import DebugWindow
-from previewBar import PreviewBar
-from fileMatch import FileMatch as fm
-from viewToolBar import ViewToolBar
+from .utilities import Utilities
+from .zipbookreader import BookCoverLoader
+from .dev_tool import DebugWindow
+from .previewbar import PreviewBar
+from .filematch import FileMatch as fm
+from .viewtoolbar import ViewToolBar
 import zipfile
 
 

@@ -3,11 +3,11 @@ from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
 import sys
 import os
-from utilities import Utilities
-from fileMatch import FileMatch as fm
+from .utilities import Utilities
+from .filematch import FileMatch as fm
 
 ##################TOOL when develop#################
-from dev_tool import DebugWindow
+from .dev_tool import DebugWindow
 
 #######################################
 
@@ -43,15 +43,15 @@ class BookCoverLoader(qtc.QObject):
             try:
                 zf = zipfile.ZipFile(file_path)
                 image = qtg.QImage()
-                
+
                 firstFilename = zf.namelist()[0]
                 if fm.isImage(firstFilename):
                     image.loadFromData(zf.open(firstFilename).read())
                 # if there is a folder inside the zipfile
-              
+
                 if image.isNull():
                     for filename in zf.namelist():
-                        if fm.isImage(filename):                           
+                        if fm.isImage(filename):
                             image.loadFromData(zf.open(filename).read())
                             break
 

@@ -3,9 +3,9 @@ from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
 import sys
 from os import path
-from utilities import Utilities
-from utilities import MangaLayout
-from zipBookReader import BookCoverLoader
+from .utilities import Utilities
+from .utilities import MangaLayout
+from .zipbookreader import BookCoverLoader
 #from magaViewer.utilities import MangaLayout
 #####LALALALA################################
 

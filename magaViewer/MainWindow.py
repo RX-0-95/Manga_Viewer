@@ -5,10 +5,10 @@ from configparser import ConfigParser
 import sys
 from os import path
 
-from zipBookReader import BookCoverLoader
-from dev_tool import DebugWindow
-from bookShelf import BookShelf
-from utilities import Utilities
+from .zipbookreader import BookCoverLoader
+from .dev_tool import DebugWindow
+from .bookshelf import BookShelf
+from .utilities import Utilities
 
 
 SETTING_FILE = "setting.ini"
