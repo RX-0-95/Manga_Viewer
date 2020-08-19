@@ -7,7 +7,7 @@ from utilities import Utilities
 from utilities import MangaLayout
 from zipBookReader import BookCoverLoader
 #from magaViewer.utilities import MangaLayout
-
+#####LALALALA################################
 
 class ViewToolBar(qtw.QWidget):
     layout_change = qtc.pyqtSignal(MangaLayout)
