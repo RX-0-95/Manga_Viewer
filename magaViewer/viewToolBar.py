@@ -4,14 +4,16 @@ from PyQt5 import QtGui as qtg
 import sys
 from os import path
 from utilities import Utilities
+from utilities import MangaLayout
 from zipBookReader import BookCoverLoader
-
+#from magaViewer.utilities import MangaLayout
 
 
 class ViewToolBar(qtw.QWidget):
+    layout_change = qtc.pyqtSignal(MangaLayout)
     def __init__(self, parent=None):
         super().__init__(parent)
-
+        
         self.__buttons = []
         self.setLayout(qtw.QGridLayout())
         self.book_shelf_btn = ViewToolButton(
@@ -54,9 +56,6 @@ class ViewToolBar(qtw.QWidget):
 
         self.layout().setContentsMargins(0, 0, 0, 0)
 
-    
-    
-
     #Setting allow this widget able to use style sheet 
     def paintEvent(self, a0):
         opt = qtw.QStyleOption()
@@ -68,8 +67,9 @@ class ViewToolBar(qtw.QWidget):
     def wheelEvent(self, a0):
         print("View Tool Bar Wheel Event")
         return super().wheelEvent(a0)
-
-
+    
+    def openPageLayoutToolBar(self):
+        None
 
 #######TO DO: change the color of the icon based on style
 class ViewToolButton(qtw.QToolButton):
@@ -110,3 +110,7 @@ class ViewToolButton(qtw.QToolButton):
     def wheelEvent(self, a0):
         print("Tool Button Wheel event")
         return super().wheelEvent(a0)
+
+class pageLayoutToolBar(qtw.QToolBar):
+    def __init__(self, title=None, parent=None):
+        super().__init__(title, parent)

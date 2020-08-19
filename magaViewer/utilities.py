@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
+from enum import Enum
 import sys
 from os import path
 
@@ -57,7 +58,12 @@ class Utilities():
     def getSettingFilePath():
         return path.join(Utilities.CurrentDir(),"setting.ini")
 
-   
+class MangaLayout(Enum):
+    FitHight = 1
+    FitWidht = 2
+    FitPage = 3 
+    FitActualSize = 4
+    
 
 
 if __name__ == "__main__":
